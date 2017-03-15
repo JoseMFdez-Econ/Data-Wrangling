@@ -70,17 +70,28 @@ def main():
     # ARTIST_URL -> http://musicbrainz.org/ws/2/artist/
     # query_type["simple"] (line 19 above)-> "simple": {}
     # name of Artist (name) -> "Los Van Van"
-    results = query_by_name(ARTIST_URL, query_type["simple"], "Nirvana")
+    results = query_by_name(ARTIST_URL, query_type["simple"], "One Direction")
     #pretty_print(results)
 
-    print ("CLASS for 'results': ", type(results))
-    print ("CLASS for results[artists]: ", type(results["artists"]))
-    print ("Length of LIST -> results[artists]: ",len(results["artists"]))
+    #print ("CLASS for 'results': ", type(results))
+    #print ("CLASS for results[artists]: ", type(results["artists"]))
+    #print ("Length of LIST -> results[artists]: ",len(results["artists"]))
 
-    print ("CLASS for results[artists][index]: ", type(results["artists"][0]))
-    print("LIST of keys in DICT results[artists][0]: ",results["artists"][0].keys())
-    print("LIST of keys in DICT results[artists][1]: ",results["artists"][1].keys())
+    #print ("CLASS for results[artists][index]: ", type(results["artists"][0]))
+    #print("LIST of keys in DICT results[artists][0]: ",results["artists"][0].keys())
+    #print("LIST of keys in DICT results[artists][1]: ",results["artists"][1].keys())
 
+
+    #results = query_by_name(ARTIST_URL, query_type["simple"], "One Direction")
+    for item in range(len(results["artists"])):
+        if results["artists"][item]["score"] == "100":
+            print (results["artists"][item]["life-span"]["begin"]) # >> 2010-07
+
+'''
+    ## Disambiguation for "Nirvana"
+    print("LIST/DICT ",results["artists"][4]["area"]["name"])
+    pretty_print ((results["artists"][4]["disambiguation"]))
+'''
 
 
 '''
@@ -102,7 +113,7 @@ def main():
 
 '''
     ## Total Bands called "First Aid Kit" - #1
-    results = query_by_name(ARTIST_URL, query_type["simple"], "First Aid Kit")
+    #results = query_by_name(ARTIST_URL, query_type["simple"], "First Aid Kit")
     list_id = list()
     for artist in results["artists"]:
         if artist["name"] == "First Aid Kit":
@@ -122,6 +133,7 @@ def main():
 
 '''
     ## Begin-Area for the Band Queen
+    #results = query_by_name(ARTIST_URL, query_type["simple"], "Queen")
     begin_area = list()
     for item in range(len(results["artists"])):
          if results["artists"][item]["name"] == "Queen":
@@ -132,6 +144,7 @@ def main():
 
 '''
     ## Spanish Alias for "The Beatles"
+    #results = query_by_name(ARTIST_URL, query_type["simple"], "The Beatles")
     for item in range(len(results["artists"])):
          if results["artists"][item]["name"] == "The Beatles":
              alias_list = results["artists"][item]["aliases"]
