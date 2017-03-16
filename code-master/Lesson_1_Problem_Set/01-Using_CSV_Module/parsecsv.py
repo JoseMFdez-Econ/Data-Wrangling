@@ -15,18 +15,39 @@ You should only change the parse_file function.
 """
 import csv
 import os
+from collections import defaultdict
 
-DATADIR = ""
+#cpath = os.getcwd()
+#print (cpath)
+os.chdir("/Users/josemanuelfernandez/Documents/Udacity/Data_Analyst/P3/Data-Wrangling/Lesson-1/code-master/Lesson_1_Problem_Set/01-Using_CSV_Module/")
+
+DATADIR = "/Users/josemanuelfernandez/Documents/Udacity/Data_Analyst/P3/Data-Wrangling/Lesson-1/code-master/Lesson_1_Problem_Set/01-Using_CSV_Module/"
 DATAFILE = "745090.csv"
 
 
 def parse_file(datafile):
     name = ""
     data = []
-    with open(datafile,'rb') as f:
-        pass
+    with open(datafile,'r', newline='') as f:
+        header = f.readline().split(",")
+        name = header[1].replace('"','')
+        #name = name.replace('"','')
+        has_header = csv.Sniffer().has_header(f.read(1024))
+        #print (has_header)
+        #print (f.seek(0))  # rewind
+        reader = csv.reader(f) # Each row read from the csv file is returned as a list of strings.
+        if has_header:
+            next(reader)  # skip header row
+        for row in reader:
+            data.append(row)
+        #pass
     # Do not change the line below
+    #print (data)
     return (name, data)
+
+#name, data = (parse_file(DATAFILE))
+
+#print (name, data[0][1])
 
 
 def test():
